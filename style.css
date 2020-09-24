@@ -1,5 +1,6 @@
 body {
   background-color: black;
+
   color: white;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -34,8 +35,8 @@ img {
   height: 100px;
   background-image: linear-gradient(
     to bottom,
-    rgba(255, 0, 0, 0),
-    rgb(20, 4, 4)
+    rgba(10, 10, 10, 0),
+    rgb(5, 5, 5)
   );
 }
 .featured h2 {
@@ -68,16 +69,12 @@ img {
 }
 
 .netflixOriginals {
-    background-image: linear-gradient(
-        180deg,
-        rgba(255, 0, 0, 0),
-        rgb(20, 4, 4)
-      );s
+  background-image: linear-gradient(rgba(12, 10, 10, 0), rgb(20, 4, 4));
 }
 
 .featured .featured__buttons .button__play {
-  background-color: white;
-  color: black;
+  background-color: rgb(54, 54, 54);
+  color: rgb(233, 223, 223);
 }
 
 .button__play i {
