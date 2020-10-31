@@ -1,8 +1,11 @@
+const API_KEY = "19f84e11932abbc79e6d83f82d6d1045";
+
 // Called whe the page is loaded
 window.onload = () => {
   getOriginals();
   getTrendingNow();
   getTopRated();
+  fetchGenreMovies();
 };
 
 async function getMovieTrailer(id) {
@@ -97,4 +100,33 @@ function getTopRated() {
   var url =
     "https://api.themoviedb.org/3/movie/top_rated?api_key=19f84e11932abbc79e6d83f82d6d1045&language=en-US&page=1";
   fetchMovies(url, "#top_rated", "backdrop_path");
+}
+
+function extractAllGenresIdAndName(all_genres) {
+  all_genres.genres.map((genre) => {
+    if (genre !== null) {
+      let genre_name_fix = genre.name.replace(/\s+/g, "").toLowerCase();
+      let genre_url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genre.id}`;
+      fetchMovies(genre_url, `.genre_${genre_name_fix}`, "backdrop_path");
+    } else {
+      console.log(genre);
+    }
+  });
+}
+
+function fetchGenreMovies() {
+  genres_url = `https://api.themoviedb.org/3/genre/movie/list?api_key=19f84e11932abbc79e6d83f82d6d1045&language=en-US`;
+  // now fetch each genre movie
+  fetch(genres_url)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else throw new Error("Something went wrong!");
+    })
+    .then((data) => {
+      extractAllGenresIdAndName(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
